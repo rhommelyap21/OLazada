@@ -20,10 +20,10 @@ https://github.com/teguh02/OLazada-Client/issues
 https://open.lazada.com/app/index.htm
 
 you can define app key and app secret key like this
-https://github.com/teguh02/OLazada-Client/blob/master/index.php#L7-L12
+https://github.com/teguh02/OLazada/blob/master/index.php#L7-L12
 
 2. And after that you can start type your code, for example if you want to get all product you can see the sample code here
-https://github.com/teguh02/OLazada-Client/blob/master/getProduct.php
+https://github.com/teguh02/OLazada/blob/master/getProduct.php
 
 3. and second code sample, if you want to get all product category you can type like this
-https://github.com/teguh02/OLazada-Client/blob/master/getProduct.php
+https://github.com/teguh02/OLazada/blob/master/getProduct.php
