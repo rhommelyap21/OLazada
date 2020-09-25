@@ -1,0 +1,26 @@
+{
+    "name": "ofi/olazada",
+    "description": "Package to access Lazada Open API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "teguh02",
+            "email": "teguhrijanandi02@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "ofi\\olazada\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "ofi\\olazada\\": "src/"
+        }
+    }
+}
