@@ -275,6 +275,10 @@ class OLazada extends LazopClient {
             $client = $client_id;
         }
 
+        if(empty($client) || empty($callback_url)) {
+            throw new Exception("Client id or callback not found");
+        }
+
         $query = http_build_query([
             'response_type' => 'code',
             'force_auth' => true,
@@ -321,7 +325,12 @@ class OLazada extends LazopClient {
 
         // save access token to cookie 
         $decode = json_decode($response, true);
-        self::saveData('OLaz_Access_token', $decode['access_token']);
+        if(isset($decode['access_token'])) {
+            self::saveData('OLaz_Access_token', $decode['access_token']);   
+        } else {
+            echo $response;
+            die();
+        }
 
         return $response;
     }
