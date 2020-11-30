@@ -5,7 +5,7 @@ Access this repository from heroku
 https://olazada.herokuapp.com
 
 for bug or issue you can create a new issue from here
-https://github.com/teguh02/OLazada-Client/issues
+https://github.com/teguh02/OLazada/issues
 
 # Thanks for
 <ul>
