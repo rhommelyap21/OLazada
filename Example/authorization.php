@@ -1,7 +1,7 @@
 <?php 
 
-// import autoload and the package
-require '../vendor/autoload.php';
+// import define file and package
+include __DIR__ . '/define.php';
 use ofi\olazada\OLazada;
 
 // ask for system to turn on debuging

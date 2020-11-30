@@ -4,12 +4,7 @@
 require 'vendor/autoload.php';
 use ofi\olazada\OLazada;
 
-// Set App Key, App Secret and service endpoint
-new OLazada(
-    122777, 
-    'QXjwckXmTnohKaAas22X3BbDjIulTOvk', 
-    "https://api.lazada.co.id/rest"
-);
+
 
 ?>
 

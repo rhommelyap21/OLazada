@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ofi\\olazada\\' => array($baseDir . '/src', $baseDir . '/src'),
+    'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
 );

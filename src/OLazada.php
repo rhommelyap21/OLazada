@@ -1,6 +1,9 @@
 <?php 
 
 namespace ofi\olazada;
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
 use ofi\olazada\lazada\LazopClient;
 use ofi\olazada\lazada\LazopRequest;
 use Exception;
@@ -35,9 +38,6 @@ class OLazada extends LazopClient {
         $secretKey = '',
         $api_url = "https://api.lazada.co.id/rest"
     ) {
-
-        // simpan data ke cookies juga
-        // supaya bisa diambil lagi dengan mudah
         $this->saveAppKey($appkey);
         $this->saveSecretKey($secretKey);
         $this->saveServiceEndpoint($api_url);
@@ -48,122 +48,77 @@ class OLazada extends LazopClient {
 
     public function saveAppKey($appkey)
     {
-        // hapus dulu datanya
-        if(isset($_COOKIE['OLaz_APP_KEY'])) {
-            setcookie("OLaz_APP_KEY", "", time() - 3600);
+        if(!defined('OLaz_APP_KEY')) {
+            define('OLaz_APP_KEY', $appkey);
         }
 
-        // baru di save lagi
-        setcookie(
-            "OLaz_APP_KEY",
-            $appkey,
-            time() + (10 * 365 * 24 * 60 * 60),
-            '/',
-            $this->SERVER_URL
-        );
         $this->appkey = $appkey;
-
-        // save data ke sessi juga
-        $_SESSION['OLaz_APP_KEY'] = $appkey;
-
         return true;
     }
 
     public function saveSecretKey($secretKey)
     {
-        // hapus dulu datanya
-        if(isset($_COOKIE['OLaz_APP_SECRET'])) {
-            setcookie("OLaz_APP_SECRET", "", time() - 3600);
+        if(defined('OLaz_APP_SECRET')) {
+            define('OLaz_APP_SECRET', $secretKey);
         }
-
-        // baru disave lagi
-        setcookie(
-            "OLaz_APP_SECRET",
-            $secretKey,
-            time() + (10 * 365 * 24 * 60 * 60),
-            '/',
-            $this->SERVER_URL
-        );
-
+        
         $this->secretKey = $secretKey;
-
-        // save data ke sessi juga
-        $_SESSION['OLaz_APP_SECRET'] = $secretKey;
-
         return true;
     }
 
     public function saveServiceEndpoint($api_url)
     {
-        // hapus dulu datanya
-        if(isset($_COOKIE['OLaz_ServiceEndpoint'])) {
-            setcookie("OLaz_ServiceEndpoint", "", time() - 3600);
+        if(defined('OLaz_ServiceEndpoint')) {
+            define('OLaz_ServiceEndpoint', $api_url);
         }
-
-        // baru save lagi
-        setcookie(
-            "OLaz_ServiceEndpoint",
-            $api_url,
-            time() + (10 * 365 * 24 * 60 * 60),
-            '/',
-            $this->SERVER_URL
-        );
-
+        
         $this->api_url = $api_url;
-
-        $_SESSION['OLaz_ServiceEndpoint'] = $api_url;
-
         return true;
     }
 
+    /**
+     * Get Service Endpoint
+     */
     public function getServiceEndpoint()
     {
+        $api_url = null;
         if(!empty($this->api_url)) {
-        
             $api_url = $this->api_url;
-
-        } else if(isset($_SESSION['OLaz_ServiceEndpoint'])) {
-            
-            $api_url = $_SESSION['OLaz_ServiceEndpoint'];
-
         } else {
-
-            $api_url = $_COOKIE['OLaz_ServiceEndpoint'];
+            $api_url = OLaz_ServiceEndpoint;
         }
  
         return $api_url;
     }
 
-    public function getAppKey()
+    /**
+     * Get App Key
+     */
+    public function getAppKey(): String
     {
-        if(isset($_COOKIE['OLaz_APP_KEY'])) {
-
-            return $_COOKIE['OLaz_APP_KEY'];
-
-        } else if(isset($_SESSION['OLaz_APP_KEY'])) { {}
-
-           return $_SESSION['OLaz_APP_KEY'];
-           
+        $appkey = null;
+        if(!empty($this->appkey)) {
+            $appkey = $this->appkey;
         } else {
-
-            return $this->appkey;
+            $appkey = OLaz_APP_KEY;
         }
+
+        return $appkey;
     }
 
-    public function getSecretKey()
+    /**
+     * Get Secret Key
+     */
+    public function getSecretKey(): String
     {
-        if(isset($_COOKIE['OLaz_APP_SECRET'])) {
-           
-            return $_COOKIE['OLaz_APP_SECRET'];
-
-        } else if(isset($_SESSION['OLaz_APP_SECRET'])) {
-            
-            return $_SESSION['OLaz_APP_SECRET'];
-
+        $secretKey = null;
+        if(!empty($this->secretKey)) {
+            $secretKey = $this->secretKey;
         } else {
-
-            return $this->secretKey;
+            $secretKey = OLaz_APP_SECRET;
         }
+
+        return $secretKey;
     }
 
     /**
@@ -177,7 +132,6 @@ class OLazada extends LazopClient {
      * $access_token is access token from lazada
      * $method is HTTP Method what do you want
      */
-
     public static function Request($url = '', $params = [], $access_token = '', $method = 'GET')
     {
         $self = new self;
@@ -187,7 +141,7 @@ class OLazada extends LazopClient {
         $api_url = $self->getServiceEndpoint();
 
         if(empty($access_token)) {
-            $access_token = $_COOKIE['OLaz_Access_token'];
+            $access_token = base64_decode($_COOKIE['OLaz_Access_token']);
         }
 
         $request = new LazopRequest($url, $method);
@@ -204,9 +158,11 @@ class OLazada extends LazopClient {
     /**
      * To turn on debuging
      */
-
     public static function DEBUG_ON()
     {
+        $whoops = new \Whoops\Run;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
         LazopClient::DEBUG_ON();
@@ -219,7 +175,6 @@ class OLazada extends LazopClient {
     /**
      * To turn off debuging
      */
-
     public static function DEBUG_OFF()
     {
         error_reporting(0);
@@ -234,7 +189,6 @@ class OLazada extends LazopClient {
     /**
      * To print all configuration
      */
-
     public static function DEBUG_PRINT()
     {
         $self = new self;
@@ -260,7 +214,6 @@ class OLazada extends LazopClient {
      * $callback_url = The callback URL you provided when creating the application.
      * 
      */
-
     public static function authorization($callback_url, $client_id = '')
     {
         if(empty($callback_url)) {
@@ -326,7 +279,7 @@ class OLazada extends LazopClient {
         // save access token to cookie 
         $decode = json_decode($response, true);
         if(isset($decode['access_token'])) {
-            self::saveData('OLaz_Access_token', $decode['access_token']);   
+            self::saveData('OLaz_Access_token', base64_encode($decode['access_token']));   
         } else {
             echo $response;
             die();

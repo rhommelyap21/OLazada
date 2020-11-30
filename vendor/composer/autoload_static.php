@@ -11,6 +11,14 @@ class ComposerStaticInitab3c5a9155d382b781f4d59e43021c00
         array (
             'ofi\\olazada\\' => 12,
         ),
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -19,6 +27,18 @@ class ComposerStaticInitab3c5a9155d382b781f4d59e43021c00
             0 => __DIR__ . '/../..' . '/src',
             1 => __DIR__ . '/../..' . '/src',
         ),
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -26,6 +46,7 @@ class ComposerStaticInitab3c5a9155d382b781f4d59e43021c00
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitab3c5a9155d382b781f4d59e43021c00::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitab3c5a9155d382b781f4d59e43021c00::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitab3c5a9155d382b781f4d59e43021c00::$classMap;
 
         }, null, ClassLoader::class);
     }

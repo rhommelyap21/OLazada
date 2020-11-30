@@ -15,6 +15,8 @@ https://github.com/teguh02/OLazada-Client/issues
 </ul>
 
 # Example
+All sample file are located in Example folder if you have a question you can contact me at teguhrijanandi02@gmail.com :)
+
 
 1. For getting started after you create new app in app console
 https://open.lazada.com/app/index.htm
