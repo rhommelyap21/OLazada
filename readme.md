@@ -17,7 +17,7 @@ https://github.com/teguh02/OLazada/issues
 # Example
 All sample file are located in Example folder if you have a question you can contact me at teguhrijanandi02@gmail.com :)
 
-1. For getting started after you create new app in app console
-https://open.lazada.com/app/index.htm
+1. Register to https://open.lazada.com/app/index.htm to get appkey and secret key
+2. instal this package with composer <code>composer require ofi/olazada</code> or you can download this repository and load the autoload.php
 
 And you can see in Example folder
